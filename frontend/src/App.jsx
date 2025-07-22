@@ -11,6 +11,7 @@ function App() {
 
   return (
     <div className='container-fluid vh-100'>
+      <Navbar/>
       <Routes>
         {/* Login Route */}
         <Route path="/login" element={<Login />} />

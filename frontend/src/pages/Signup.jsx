@@ -60,13 +60,20 @@ export default function Signup() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-700 text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="text-indigo-600 font-semibold hover:underline">
-            Login
-          </Link>
-        </p>
+        <div className="mt-6 text-center text-gray-700 text-sm">
+            <p className=" text-center text-gray-700 text-sm">
+            Already have an account?{" "}
+            <Link
+                to="/login"
+                className="text-blue-600 font-semibold hover:underline"
+            >
+                Login
+            </Link>
+            </p>
+        </div>
       </div>
     </div>
   );
 }
+
+

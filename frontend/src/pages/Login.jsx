@@ -1,6 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-export default function Signup() {
+// Mock login check (replace with real auth logic)
+const isLoggedIn = () => {
+  return !!localStorage.getItem("token"); // Replace with your real token check
+};
+
+export default function Login() {
+  const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate("/dashboard"); // Redirect to your main page
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-300 via-blue-200 to-sky-300 px-4">
       <div className="w-full max-w-md bg-white/70 backdrop-blur-xl shadow-2xl rounded-3xl p-10 border border-white/40 animate-fade-in-up">
@@ -12,31 +27,22 @@ export default function Signup() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <circle cx="12" cy="12" r="10" strokeWidth="2" />
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M12 8v4l3 3"
+                d="M16 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"
               />
+              <circle cx="12" cy="7" r="4" strokeWidth="2" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-blue-800 mt-4">Create Account</h2>
-          <p className="text-gray-600 text-sm mt-1">Join us and start your journey!</p>
+          <h2 className="text-3xl font-bold text-blue-800 mt-4">Welcome Back</h2>
+          <p className="text-gray-600 text-sm mt-1">
+            Log in to continue your journey!
+          </p>
         </div>
 
         <form className="space-y-5">
-          <div>
-            <label className="block mb-1 text-gray-700 font-medium">Name</label>
-            <input
-              type="text"
-              placeholder="Your Name"
-              autoComplete="name"
-              required
-              className="w-full px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
-            />
-          </div>
-
           <div>
             <label className="block mb-1 text-gray-700 font-medium">Email</label>
             <input
@@ -53,7 +59,7 @@ export default function Signup() {
             <input
               type="password"
               placeholder="••••••••"
-              autoComplete="new-password"
+              autoComplete="current-password"
               required
               className="w-full px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
             />
@@ -61,21 +67,23 @@ export default function Signup() {
 
           <button
             type="submit"
-            className="w-full py-2 rounded-lg text-white bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 font-semibold transition-all duration-300 shadow-md"
+            className="w-full py-2 rounded-lg text-white bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 font-semibold transition-all duration-300 shadow-md"
           >
-            Sign Up
+            Login
           </button>
         </form>
 
-        <p className="mt-6 text-center text-gray-700 text-sm">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="text-blue-600 font-semibold hover:underline"
-          >
-            Login
-          </Link>
-        </p>
+        <div className="mt-6 text-center text-gray-700 text-sm">
+          <p>
+            Don't have an account?{" "}
+            <Link
+              to="/signup"
+              className="text-blue-600 font-semibold hover:underline"
+            >
+              Sign Up
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
