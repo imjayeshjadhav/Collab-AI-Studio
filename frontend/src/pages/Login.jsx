@@ -1,20 +1,46 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-
-// Mock login check (replace with real auth logic)
-const isLoggedIn = () => {
-  return !!localStorage.getItem("token"); // Replace with your real token check
-};
+import { useState } from "react";
+import { API_URL } from "../../services/api";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const navigate = useNavigate();
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (isLoggedIn()) {
-      navigate("/dashboard"); // Redirect to your main page
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false)
+
+    const handleLogin = async (e) => {
+
+        e.preventDefault();
+        // Handle login logic here 
+        setLoading(true) 
+        try {
+            const response = await fetch(`${API_URL}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+            })
+            
+            const data = await response.json();
+            if (response.ok) {
+                setUser(data.user);
+                toast.success("Login successful!");
+                navigate("/");
+            } else {
+                toast(data.message || "Login failed check credentials")
+            }
+
+        } catch (error) {
+            console.error("Login failed:", error);
+            toast.error("Something went wrong. Try again later.");
+        } finally {
+            setLoading(false)
+        }
     }
-  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-300 via-blue-200 to-sky-300 px-4">
@@ -47,6 +73,8 @@ export default function Login() {
             <label className="block mb-1 text-gray-700 font-medium">Email</label>
             <input
               type="email"
+              value={email}
+              onChange={(e)=> setEmail(e.target.value)}
               placeholder="you@example.com"
               autoComplete="username"
               required
@@ -58,7 +86,9 @@ export default function Login() {
             <label className="block mb-1 text-gray-700 font-medium">Password</label>
             <input
               type="password"
+              value={password}
               placeholder="••••••••"
+              onChange={(e)=> setPassword(e.target.value)}
               autoComplete="current-password"
               required
               className="w-full px-4 py-2 border border-blue-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
@@ -66,6 +96,7 @@ export default function Login() {
           </div>
 
           <button
+            onClick={handleLogin}
             type="submit"
             className="w-full py-2 rounded-lg text-white bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 font-semibold transition-all duration-300 shadow-md"
           >

@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import CodeText from './Components/Codeeditor/CodeText';
 import SplitPane from "react-split-pane";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
 function App() {
-  const [user, setUser] = useState(null);
 
   return (
     <div className='container-fluid vh-100'>
@@ -35,6 +35,9 @@ function App() {
         />
         {/* <Route path="/aiprompt" element={<Aipromt />} /> */}
       </Routes>
+
+      <ToastContainer position="top-right" autoClose={3000} />
+
     </div>
   );
 }
