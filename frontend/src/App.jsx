@@ -1,40 +1,41 @@
-import { useState } from 'react'
-import './App.css'
-import Navbar from './Components/Navbar'
-import SplitPane from "react-split-pane"
-import Navbareditor from './Components/Navbareditor'
-import Aipromt from './Components/Aipromt'
-import Signup from './Components/Loginform/Signup'
-import Loginf from './Components/Loginform/Loginf'
-import CodeText from './Components/Codeeditor/CodeText'
-
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import CodeText from './Components/Codeeditor/CodeText';
+import SplitPane from "react-split-pane";
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
-
-   const [user, setUser] = useState(null);
-
-  
+  const [user, setUser] = useState(null);
 
   return (
-    <>
- 
-    {/* <Loginf/> */}
-{/* <Signup/> */}
-<div className='container-fluid vh-100'>
+    <div className='container-fluid vh-100'>
+      <Routes>
+        {/* Login Route */}
+        <Route path="/login" element={<Login />} />
 
+        {/* Signup Route */}
+        <Route path="/signup" element={<Signup />} />
 
-     <SplitPane className='slitepane '  split="vertical" minSize={50}>
-  <div style={{backgroundColor:'grey' ,height:'100%'}}> <Navbar/></div>
-  <div style={{backgroundColor:'grey' ,height:'100%'}}>
-  <CodeText></CodeText>
-  </div>
-</SplitPane>
-</div>
-    {/* <Navbar/> */}
-     
-     
-    </>
-  )
+        {/* Main Editor Route */}
+        <Route
+          path="/"
+          element={
+            <SplitPane className='slitepane' split="vertical" minSize={50}>
+              <div style={{ backgroundColor: 'grey', height: '100%' }}>
+                <Navbar />
+              </div>
+              <div style={{ backgroundColor: 'grey', height: '100%' }}>
+                <CodeText />
+              </div>
+            </SplitPane>
+          }
+        />
+        {/* <Route path="/aiprompt" element={<Aipromt />} /> */}
+      </Routes>
+    </div>
+  );
 }
 
-export default App
+export default App;
