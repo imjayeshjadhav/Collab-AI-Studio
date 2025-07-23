@@ -1,0 +1,52 @@
+# Dependency directories
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+.next/
+out/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment variables
+.env
+.env.*.local
+.env.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Local development
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional: Tailwind JIT cache
+.tailwind-cache/
+
+# Optional: Turbo / Nx / Monorepo tools
+.turbo/
+.cache/
+
+# Optional: VS Code user snippets backup
+.code-workspace
